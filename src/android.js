@@ -47,6 +47,7 @@ const getSignCommands = (isCrosswalk) => {
         -sigalg SHA1withRSA \
         -digestalg SHA1 \
         -storepass $ANDROID_STORE_PASS \
+        -keystore $ANDROID_KEY_STORE \
         ${apkPath} \
         $ANDROID_KEY
     `
@@ -85,7 +86,7 @@ const getAlignCommands = (isCrosswalk) => {
 
 const prepareApk = env => (
   new Promise((resolve) => {
-    if (!util.hasPlatform("android")) {
+    if (!util.hasPlatform("android",env)) {
       console.log("Skipping Android APK preparation...");
       return resolve("skipped");
     }

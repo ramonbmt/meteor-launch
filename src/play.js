@@ -4,7 +4,7 @@ import util from "./util";
 
 const uploadPlayStore = env => (
   new Promise((resolve) => {
-    if (!util.hasPlatform("android")) {
+    if (!util.hasPlatform("android",env)) {
       console.log("Skipping Android upload to Play Store...");
       return resolve("skipped");
     }

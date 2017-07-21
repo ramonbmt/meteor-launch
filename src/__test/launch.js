@@ -17,6 +17,7 @@ const launchSettings = [
   "SLACK_URL",
   "SLACK_ROOM",
   "ANDROID_KEY",
+  "ANDROID_KEY_STORE",
   "ANDROID_STORE_PASS",
   "ANDROID_ZIPALIGN",
   "IOS_HOCKEY_TOKEN",

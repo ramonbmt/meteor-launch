@@ -88,7 +88,7 @@ const init = () => (
       /* istanbul ignore next */
       console.log("Installing fastlane...");
       /* istanbul ignore next */
-      execSync("sudo gem install fastlane");
+      execSync("brew cask install fastlane");
     }
 
     stat(launchFile, (err) => {
@@ -168,8 +168,13 @@ const importCerts = env => (
   })
 );
 
-const hasPlatform = (platform) => {
-  const platforms = execSync("meteor list-platforms");
+const hasPlatform = (platform,env) => {
+  let meteor_input_dir = env.METEOR_INPUT_DIR
+  let buildAction = `cd ${meteor_input_dir} &&`;
+  buildAction+=" meteor list-platforms";
+  const platforms = execSync(buildAction,{
+    env
+  });
   return platforms.toString().indexOf(platform) > -1;
 };
 

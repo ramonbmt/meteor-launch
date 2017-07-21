@@ -27,11 +27,11 @@ const build = env => (
 
     try {
       // opening xcode ensures the schemes exist for the project
-      console.log("Opening Xcode :( ...");
-      execSync("open $XCODE_PROJECT", {
-        stdio: [0],
-        env,
-      });
+      // console.log("Opening Xcode :( ...");
+      // execSync("open $XCODE_PROJECT", {
+      //   stdio: [0],
+      //   env,
+      // });
       console.log(process.env.XCODE_PROJECT);
       execSync("sleep 5");
 

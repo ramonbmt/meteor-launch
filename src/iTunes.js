@@ -3,11 +3,12 @@ import util from "./util";
 
 const uploadTestFlight = env => (
   new Promise((resolve) => {
-    if (!util.hasPlatform("ios")) {
+    console.log(env)
+    if (!util.hasPlatform("ios",env)) {
       console.log("Skipping iOS upload to TestFlight...");
       return resolve("skipped");
     }
-
+    
     console.log("Uploading iOS to TestFlight...");
 
     execSync("fastlane ios beta", {
@@ -21,7 +22,7 @@ const uploadTestFlight = env => (
 
 const uploadAppStore = env => (
   new Promise((resolve) => {
-    if (!util.hasPlatform("ios")) {
+    if (!util.hasPlatform("ios",env)) {
       console.log("Skipping iOS upload to iTunes...");
       return resolve("skipped");
     }

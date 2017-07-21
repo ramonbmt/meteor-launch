@@ -8,6 +8,7 @@ import hockey from "./hockey";
 import iTunes from "./iTunes";
 import android from "./android";
 import play from "./play";
+import mup from "./mup"
 import util from "./util";
 
 const Launch = vorpal();
@@ -44,6 +45,13 @@ Launch
   .action(() => {
     util.cleanMeteorOutputDir(superEnv)
       .then(meteor.build(superEnv))
+      .catch(error => console.log(error));
+  });
+
+Launch
+  .command("deploy", "Deploy the aplication using mup")
+  .action(() => {
+    mup.deploy(superEnv)
       .catch(error => console.log(error));
   });
 
@@ -92,12 +100,23 @@ Launch
   });
 
 Launch
-  .command("production", "Deploy to iTunes and Play")
+  .command("production", "Deploy to iTunes and Play Store")
   .action(() => {
     util.addFastfile()
       .then(() => android.prepareApk(superEnv))
       .then(() => play.uploadPlayStore(superEnv))
       .then(() => iTunes.uploadAppStore(superEnv))
+      .then(() => util.removeFastfile())
+      .catch(error => console.log(error.message));
+  });
+
+Launch
+  .command("beta", "Deploy to iTunes Beta and Play Store")
+  .action(() => {
+    util.addFastfile()
+      .then(() => android.prepareApk(superEnv))
+      .then(() => play.uploadPlayStore(superEnv))
+      .then(() => iTunes.uploadTestFlight(superEnv))
       .then(() => util.removeFastfile())
       .catch(error => console.log(error.message));
   });
