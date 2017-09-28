@@ -122,6 +122,19 @@ Launch
   });
 
 Launch
+  .command("buildbeta", "Build && Deploy to iTunes Beta and Play Store")
+  .action(() => {
+    util.cleanMeteorOutputDir(superEnv)
+      .then(() => meteor.build(superEnv))
+      .then(() => util.addFastfile())
+      .then(() => android.prepareApk(superEnv))
+      .then(() => play.uploadPlayStore(superEnv))
+      .then(() => iTunes.uploadTestFlight(superEnv))
+      .then(() => util.removeFastfile())
+      .catch(error => console.log(error.message));
+  });
+
+Launch
   .command("galaxy", "Deploy to Galaxy")
   .action(() => {
     galaxy.deploy(superEnv)
